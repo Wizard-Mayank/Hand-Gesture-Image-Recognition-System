@@ -11,7 +11,7 @@ detector = HandDetector(maxHands=1)
 # Parameters
 offset = 20
 imgSize = 300
-folder = "Data/D"
+folder = "Hand Gesture Image Recognition System\Data\0"
 counter = 0
 
 while True:
@@ -20,7 +20,7 @@ while True:
 
     if hands:
         hand = hands[0]
-        x, y, w, h = hand['bbox']
+        x, y, w, h = hand["bbox"]
 
         # White background canvas
         imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
@@ -43,13 +43,13 @@ while True:
             wCal = math.ceil(k * w)
             imgResize = cv2.resize(imgCrop, (wCal, imgSize))
             wGap = math.ceil((imgSize - wCal) / 2)
-            imgWhite[:, wGap:wGap + wCal] = imgResize
+            imgWhite[:, wGap : wGap + wCal] = imgResize
         else:
             k = imgSize / w
             hCal = math.ceil(k * h)
             imgResize = cv2.resize(imgCrop, (imgSize, hCal))
             hGap = math.ceil((imgSize - hCal) / 2)
-            imgWhite[hGap:hGap + hCal, :] = imgResize
+            imgWhite[hGap : hGap + hCal, :] = imgResize
 
         # Show intermediate steps
         cv2.imshow("ImageCrop", imgCrop)
@@ -62,5 +62,5 @@ while True:
     # Save on keypress
     if key == ord("s"):
         counter += 1
-        cv2.imwrite(f'{folder}/Image_{time.time()}.jpg', imgWhite)
+        cv2.imwrite(f"{folder}/Image_{time.time()}.jpg", imgWhite)
         print(f"Saved image {counter}")
